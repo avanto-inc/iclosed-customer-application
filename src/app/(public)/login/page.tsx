@@ -12,31 +12,63 @@ import {
   FileCheck,
 } from "lucide-react";
 
+import { useRouter } from "next/navigation";
+
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const [error, setError] = useState("");
+
+  const router = useRouter();
+
   const handleSubmit = async (e: React.FormEvent) => {
+    setLoading(true);
+    setError("");
+
+    const validEmail = "admin@gmail.com";
+    const validPassword = "123456";
+
+    setTimeout(() => {
+      if (email === validEmail && password === validPassword) {
+        router.push("/intake");
+      } else {
+        setError("Invalid email or password");
+        setLoading(false);
+      }
+    }, 500);
+
     e.preventDefault();
     setLoading(true);
     setTimeout(() => setLoading(false), 1500);
   };
 
   const features = [
-    { icon: <Shield size={16} className="flex-shrink-0 opacity-90" />, label: "Bank-grade encryption" },
-    { icon: <FileCheck size={16} className="flex-shrink-0 opacity-90" />, label: "e-Signature ready documents" },
-    { icon: <Building2 size={16} className="flex-shrink-0 opacity-90" />, label: "Expert legal team on standby" },
+    {
+      icon: <Shield size={16} className="flex-shrink-0 opacity-90" />,
+      label: "Bank-grade encryption",
+    },
+    {
+      icon: <FileCheck size={16} className="flex-shrink-0 opacity-90" />,
+      label: "e-Signature ready documents",
+    },
+    {
+      icon: <Building2 size={16} className="flex-shrink-0 opacity-90" />,
+      label: "Expert legal team on standby",
+    },
   ];
 
   return (
     <div className="flex min-h-screen bg-white">
-
       {/* ── Left branding panel ── */}
       <aside
         className="relative hidden md:flex w-[420px] flex-shrink-0 flex-col justify-between overflow-hidden px-8 py-10"
-        style={{ background: "linear-gradient(145deg, #c0392b 0%, #8b1a12 60%, #5a0d09 100%)" }}
+        style={{
+          background:
+            "linear-gradient(145deg, #c0392b 0%, #8b1a12 60%, #5a0d09 100%)",
+        }}
       >
         {/* Decorative blobs */}
         <div className="pointer-events-none absolute -top-20 -right-24 h-80 w-80 rounded-full bg-white opacity-[0.12]" />
@@ -46,8 +78,12 @@ export default function LoginPage() {
         <div className="relative z-10 mt-4">
           {/* Logo */}
           <div className="mb-12 flex items-baseline gap-0.5">
-            <span className="font-serif text-[2rem] font-extrabold italic leading-none text-white">i</span>
-            <span className="text-[1.6rem] font-extrabold leading-none tracking-tight text-white">Closed</span>
+            <span className="font-serif text-[2rem] font-extrabold italic leading-none text-white">
+              i
+            </span>
+            <span className="text-[1.6rem] font-extrabold leading-none tracking-tight text-white">
+              Closed
+            </span>
           </div>
 
           <h2 className="mb-4 text-[1.75rem] font-bold leading-snug text-white">
@@ -83,28 +119,44 @@ export default function LoginPage() {
       {/* ── Right form panel ── */}
       <main className="flex flex-1 items-start justify-center px-6 pt-12 md:items-center md:pt-8">
         <div className="w-full max-w-[400px]">
-
           {/* Mobile-only logo */}
           <div className="mb-8 flex items-baseline gap-0.5 md:hidden">
-            <span className="font-serif text-[2rem] font-extrabold italic leading-none text-[#c0392b]">i</span>
-            <span className="text-[1.6rem] font-extrabold leading-none tracking-tight text-gray-900">Closed</span>
+            <span className="font-serif text-[2rem] font-extrabold italic leading-none text-[#c0392b]">
+              i
+            </span>
+            <span className="text-[1.6rem] font-extrabold leading-none tracking-tight text-gray-900">
+              Closed
+            </span>
           </div>
 
           {/* Header */}
           <div className="mb-8">
-            <h1 className="mb-1.5 text-[1.6rem] font-bold text-gray-900">Welcome back</h1>
-            <p className="text-sm text-gray-500">Sign in to your customer portal</p>
+            <h1 className="mb-1.5 text-[1.6rem] font-bold text-gray-900">
+              Welcome back
+            </h1>
+            <p className="text-sm text-gray-500">
+              Sign in to your customer portal
+            </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
-
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col gap-4"
+            noValidate
+          >
             {/* Email field */}
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="email" className="text-[0.8rem] font-semibold tracking-[0.01em] text-gray-800">
+              <label
+                htmlFor="email"
+                className="text-[0.8rem] font-semibold tracking-[0.01em] text-gray-800"
+              >
                 Email address
               </label>
               <div className="relative flex items-center">
-                <Mail size={16} className="pointer-events-none absolute left-3.5 text-gray-400" />
+                <Mail
+                  size={16}
+                  className="pointer-events-none absolute left-3.5 text-gray-400"
+                />
                 <input
                   id="email"
                   type="email"
@@ -121,7 +173,10 @@ export default function LoginPage() {
             {/* Password field */}
             <div className="flex flex-col gap-1.5">
               <div className="flex items-center justify-between">
-                <label htmlFor="password" className="text-[0.8rem] font-semibold tracking-[0.01em] text-gray-800">
+                <label
+                  htmlFor="password"
+                  className="text-[0.8rem] font-semibold tracking-[0.01em] text-gray-800"
+                >
                   Password
                 </label>
                 <a
@@ -132,7 +187,10 @@ export default function LoginPage() {
                 </a>
               </div>
               <div className="relative flex items-center">
-                <Lock size={16} className="pointer-events-none absolute left-3.5 text-gray-400" />
+                <Lock
+                  size={16}
+                  className="pointer-events-none absolute left-3.5 text-gray-400"
+                />
                 <input
                   id="password"
                   type={showPassword ? "text" : "password"}
@@ -154,6 +212,8 @@ export default function LoginPage() {
               </div>
             </div>
 
+            {error && <p className="text-sm text-red-600 mt-1">{error}</p>}
+
             {/* Submit button */}
             <button
               type="submit"
@@ -165,7 +225,10 @@ export default function LoginPage() {
               ) : (
                 <>
                   Sign In
-                  <ArrowRight size={16} className="transition-transform duration-150 group-hover:translate-x-1" />
+                  <ArrowRight
+                    size={16}
+                    className="transition-transform duration-150 group-hover:translate-x-1"
+                  />
                 </>
               )}
             </button>
@@ -182,11 +245,28 @@ export default function LoginPage() {
               type="button"
               className="flex w-full items-center justify-center gap-2.5 rounded-lg border-[1.5px] border-gray-300 bg-white px-5 py-[0.72rem] text-[0.88rem] font-medium text-gray-800 transition-all duration-150 hover:border-[#c0392b]/40 hover:bg-gray-50 hover:shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
             >
-              <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
-                <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4" />
-                <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#34A853" />
-                <path d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05" />
-                <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335" />
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+                aria-hidden="true"
+              >
+                <path
+                  d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"
+                  fill="#4285F4"
+                />
+                <path
+                  d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"
+                  fill="#34A853"
+                />
+                <path
+                  d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"
+                  fill="#FBBC05"
+                />
+                <path
+                  d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"
+                  fill="#EA4335"
+                />
               </svg>
               Sign in with Google
             </button>
