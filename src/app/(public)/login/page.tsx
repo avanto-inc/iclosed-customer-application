@@ -33,7 +33,7 @@ export default function LoginPage() {
 
     setTimeout(() => {
       if (email === validEmail && password === validPassword) {
-        router.push("/intake");
+        router.push("/dashboard");
       } else {
         setError("Invalid email or password");
         setLoading(false);
