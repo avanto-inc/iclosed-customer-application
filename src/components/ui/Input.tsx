@@ -25,7 +25,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           id={inputId}
           className={[
-            "w-full px-4 py-2.5 rounded-lg border text-sm transition-colors duration-150",
+            "w-full px-4 py-2.5 rounded-sm border text-sm transition-colors duration-150",
             "bg-[var(--color-surface)] text-[var(--color-text-heading)]",
             "placeholder:text-[var(--color-text-muted)]",
             error
